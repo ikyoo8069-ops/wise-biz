@@ -305,7 +305,9 @@
                 }
                 
                 if (programs.length > 0) {
-                    listDiv.innerHTML = programs.map(p => `
+                    listDiv.innerHTML = programs.map(p => {
+                        const searchUrl = p.url || `https://www.bizinfo.go.kr/web/lay1/bbs/S1T122C128/AS/74/list.do?search=${encodeURIComponent(p.name || '')}`;
+                        return `
                         <div class="bg-white rounded-xl p-4 card-hover transition">
                             <div class="flex items-center gap-2 mb-2">
                                 <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">모집중</span>
@@ -315,9 +317,9 @@
                             <h3 class="font-bold text-gray-800">${p.name || '사업명 없음'}</h3>
                             <p class="text-gray-600 text-sm mt-1">📅 ${p.period || '기간 미정'}</p>
                             <p class="text-purple-600 text-sm mt-2">💡 ${p.reason || ''}</p>
-                            ${p.url && p.url !== '' ? `<a href="${p.url}" target="_blank" class="inline-block mt-3 px-4 py-2 bg-orange-500 text-white rounded-lg text-sm hover:bg-orange-600 transition">상세보기 →</a>` : ''}
+                            <a href="${searchUrl}" target="_blank" class="inline-block mt-3 px-4 py-2 bg-orange-500 text-white rounded-lg text-sm hover:bg-orange-600 transition">상세보기 →</a>
                         </div>
-                    `).join('');
+                    `}).join('');
                 } else {
                     listDiv.innerHTML = `
                         <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-center">
